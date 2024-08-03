@@ -10,10 +10,6 @@ load_dotenv()
 # Get the bot token from the environment variables
 DISCORD_BOT_TOKEN = os.getenv('DISCORD_BOT_TOKEN')
 
-# Read webhook URLs from file
-with open('webhooks.txt', 'r') as file:
-    webhooks = [line.strip() for line in file]
-
 intents = discord.Intents.default()
 intents.message_content = True
 
@@ -26,6 +22,10 @@ embed_footer_image_url = "https://cdn.discordapp.com/attachments/124514063923505
 @bot.event
 async def on_ready():
     print(f'Logged in as {bot.user}')
+
+def read_webhooks():
+    with open('webhooks.txt', 'r') as file:
+        return [line.strip() for line in file]
 
 @bot.event
 async def on_message(message):
@@ -50,6 +50,10 @@ async def on_message(message):
             else:
                 print(f"Attachment found but not an image: {attachment.url}")
 
+        # Read webhooks dynamically
+        webhooks = read_webhooks()
+        print(f"Webhooks: {webhooks}")
+
         # Send the embed to all webhooks
         for webhook_url in webhooks:
             data = {
@@ -58,7 +62,7 @@ async def on_message(message):
                 "embeds": [embed.to_dict()]
             }
             response = requests.post(webhook_url, json=data)
-            print(f"Webhook Response: {response.status_code}, Response Content: {response.content}")
+            print(f"Webhook URL: {webhook_url}, Response: {response.status_code}")
 
     await bot.process_commands(message)
 
