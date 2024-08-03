@@ -25,7 +25,9 @@ async def on_ready():
 
 def read_webhooks():
     with open('webhooks.txt', 'r') as file:
-        return [line.strip() for line in file]
+        webhooks = [line.strip() for line in file]
+        print(f"Read webhooks: {webhooks}")  # Debugging log
+        return webhooks
 
 @bot.event
 async def on_message(message):
@@ -52,17 +54,17 @@ async def on_message(message):
 
         # Read webhooks dynamically
         webhooks = read_webhooks()
-        print(f"Webhooks: {webhooks}")
 
         # Send the embed to all webhooks
         for webhook_url in webhooks:
+            print(f"Sending to webhook: {webhook_url}")  # Debugging log
             data = {
                 "username": "Andrew Z Deals",
                 "avatar_url": embed_footer_image_url,
                 "embeds": [embed.to_dict()]
             }
             response = requests.post(webhook_url, json=data)
-            print(f"Webhook URL: {webhook_url}, Response: {response.status_code}")
+            print(f"Webhook URL: {webhook_url}, Response: {response.status_code}, Response Content: {response.content}")
 
     await bot.process_commands(message)
 
