@@ -16,8 +16,8 @@ intents.message_content = True
 # Create a bot instance
 bot = commands.Bot(command_prefix='!', intents=intents)
 
-# URL for the image you want to use in the embed footer
-embed_footer_image_url = "https://cdn.discordapp.com/attachments/1245140639235051624/1269076967261606018/2024-08-02_7.38.16_PM.jpg?ex=66aebf87&is=66ad6e07&hm=3a4ef986c2f963a595643b593372e6071cd70e4cdf5b3bd7b7eea0ed27624058"
+# URL for the image you want to use in the embed footer and as avatar
+embed_footer_image_url = "https://imgur.com/a/15KBf8T"
 
 @bot.event
 async def on_ready():
@@ -59,9 +59,9 @@ async def on_message(message):
         for webhook_url in webhooks:
             print(f"Sending to webhook: {webhook_url}")  # Debugging log
             data = {
-                "username": "Andrew Z Deals",
-                "avatar_url": embed_footer_image_url,
-                "embeds": [embed.to_dict()]
+                "username": "Andrew Z Deals",  # Custom username
+                "avatar_url": embed_footer_image_url,  # Custom avatar URL
+                "embeds": [embed.to_dict()]  # Embed converted to dict
             }
             response = requests.post(webhook_url, json=data)
             print(f"Webhook URL: {webhook_url}, Response: {response.status_code}, Response Content: {response.content}")
