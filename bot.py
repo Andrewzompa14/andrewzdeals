@@ -17,7 +17,7 @@ intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # URL for the image you want to use in the embed footer and as avatar
-embed_footer_image_url = "https://imgur.com/a/15KBf8T"
+embed_footer_image_url = "https://i.postimg.cc/85FC1YG7/andrewzlogo.jpg"
 
 @bot.event
 async def on_ready():
