@@ -39,7 +39,7 @@ async def on_message(message):
     if message.channel.id == 1269073024510853270:  # Replace with your channel ID
         # Create an embed from the message
         embed = discord.Embed(description=message.content, color=0x1E90FF)
-        embed.set_footer(text="Andrew Z Deals", icon_url=embed_footer_image_url)
+        embed.set_footer(text="Andrew Z Deals | @andrewz9525", icon_url=embed_footer_image_url)
 
         # Check if there's an image attachment
         for attachment in message.attachments:
